@@ -1,10 +1,8 @@
-import './App.css'
+import "./App.css";
+import Tabs from "./Component/Tabs";
 
 function App() {
-
-  return (
-    
-  )
+  return <Tabs tabs={["Home", "Profile", "Settings"]} />;
 }
 
-export default App
+export default App;
