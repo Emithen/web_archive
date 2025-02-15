@@ -1,8 +1,12 @@
-import "./App.css";
-import Tabs from "./Component/Tabs";
+import { Routes, Route } from "react-router-dom";
+import Tab from "./Page/Tab";
 
 function App() {
-  return <Tabs tabs={["Home", "Profile", "Settings"]} />;
+  return (
+    <Routes>
+      <Route path="/tab" element={<Tab />} />
+    </Routes>
+  );
 }
 
 export default App;
