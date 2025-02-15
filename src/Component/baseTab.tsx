@@ -5,7 +5,7 @@ interface TabProps {
   tabs: string[];
 }
 
-const Tabs: React.FC<TabProps> = ({ tabs }) => {
+const BaseTab: React.FC<TabProps> = ({ tabs }) => {
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
   return (
@@ -23,7 +23,7 @@ const Tabs: React.FC<TabProps> = ({ tabs }) => {
   );
 };
 
-export default Tabs;
+export default BaseTab;
 
 const TabContainer = styled.div``;
 
