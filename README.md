@@ -1,50 +1,24 @@
-# React + TypeScript + Vite
+# 프로젝트 구조 (목표)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+src/
+├── components/         # 재사용 가능한 UI 컴포넌트
+│   ├── ui/             # 버튼, 인풋, 토글 등 atomic 레벨
+│   │   ├── Button.tsx
+│   │   ├── Input.tsx
+│   │   └── Toggle.tsx
+│   └── composite/      # 조합 컴포넌트 (탭, 모달 등)
+│       ├── Tabs/
+│       ├── Modal/
+│       └── Accordion/
+├── pages/              # UI 컴포넌트 데모/사용 예시 페이지
+│   ├── Home.tsx
+│   ├── ButtonPage.tsx
+│   └── ModalPage.tsx
+├── styles/             # 전역 스타일 (CSS 또는 Tailwind 설정)
+│   └── globals.css
+├── lib/                # 유틸, 상태관리, 훅 등
+│   ├── hooks/
+│   ├── utils/
+│   └── constants.ts
+├── App.tsx
+└── main.tsx
