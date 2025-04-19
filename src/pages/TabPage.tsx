@@ -1,4 +1,4 @@
-import BaseTab from "../components/Tab/baseTab";
+import BaseTab from "../components/Tab/BaseTab";
 
 const TabPage: React.FC = () => {
   return (

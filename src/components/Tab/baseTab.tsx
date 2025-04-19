@@ -25,6 +25,25 @@ const BaseTab: React.FC<TabProps> = ({ tabs }) => {
 
 export default BaseTab;
 
-const TabContainer = styled.div``;
+const TabContainer = styled.div`
+  display: flex;
+  gap: 8px;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 4px;
+`;
 
-const TabButton = styled.button<{ isActive: boolean }>``;
+const TabButton = styled.button<{ isActive: boolean }>`
+  padding: 8px 16px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid
+    ${({ isActive }) => (isActive ? "#007bff" : "transparent")};
+  color: ${({ isActive }) => (isActive ? "#007bff" : "#555")};
+  font-weight: ${({ isActive }) => (isActive ? "600" : "400")};
+  cursor: pointer;
+
+  &:hover {
+    color: #007bff;
+  }
+`;
+
