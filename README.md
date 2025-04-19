@@ -1,5 +1,6 @@
 # 프로젝트 구조 (목표)
 
+```
 src/
 ├── components/         # 재사용 가능한 UI 컴포넌트
 │   ├── ui/             # 버튼, 인풋, 토글 등 atomic 레벨
@@ -22,3 +23,4 @@ src/
 │   └── constants.ts
 ├── App.tsx
 └── main.tsx
+```
