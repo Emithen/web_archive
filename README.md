@@ -24,3 +24,7 @@ src/
 ├── App.tsx
 └── main.tsx
 ```
+
+# PR 규칙
+
+- !!! Rebase and Merge !!!
