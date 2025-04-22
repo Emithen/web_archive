@@ -1,5 +1,6 @@
-import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
+import styled from "@emotion/styled";
+import PasswordInputs from "../components/Form/PasswordInputs";
 //import axios from "axios";
 
 // 새 비밀번호: 프론트에서 실시간 에러 처리
@@ -9,10 +10,8 @@ const PasswordChange = () => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-
   // 에러 메시지
   const [errorMessage, setErrorMessage] = useState("");
-
   // 실시간 유효성 검사 변수
   const [isDisabled, setIsDisabled] = useState(true);
 
@@ -32,7 +31,7 @@ const PasswordChange = () => {
     );
   };
 
-  // 새 비밀번호가 변경될 때마다 유효성 검사
+  // 새 비밀번호가 변경될 때마다 실시간 유효성 검사
   useEffect(() => {
     setIsDisabled(!checkPasswordValidity(newPassword));
   }, [newPassword]);
@@ -59,18 +58,18 @@ const PasswordChange = () => {
   };
 
   // 비밀번호 변경 함수 - 중요 기능
+  // 현재 비밀번호와 새 비밀번호가 같은 경우, 비밀번호 변경 로직은 벡엔드에서 처리
   const handlePasswordChange = () => {
     // 기본적인 에러 검사
     if (!currentPassword || !newPassword || !passwordConfirm) {
       setErrorMessage("모든 필드를 입력해주세요");
-    }
-    if (currentPassword === newPassword) {
-      setErrorMessage("현재 비밀번호와 새 비밀번호가 같습니다.");
-    } else if (currentPassword !== newPassword) {
+      return;
+    } else if (newPassword !== passwordConfirm) {
       setErrorMessage("새 비밀번호와 새 비밀번호 확인 값이 다릅니다.");
+      return;
     }
-    return;
-    // API 호출하여 비밀번호 변경
+
+    // 비밀번호 변경 API 호출
     // try {
     //   const response = await authApi.patch("/members/me/password", {
     //     currentPassword,
@@ -83,37 +82,25 @@ const PasswordChange = () => {
     <>
       <Container>
         <Title>비밀번호 변경</Title>
-        <InputForms>
-          <Flex>
-            <Text>현재 비밀번호</Text>
-            <PasswordBox
-              type="password"
-              value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
-            />
-          </Flex>
-          <Flex>
-            <Text>새 비밀번호</Text>
-            <PasswordBox
-              type="password"
-              value={newPassword}
-              onChange={handleNewPasswordChange}
-            />
-          </Flex>
-          <Flex>
-            <Text>새 비밀번호 확인</Text>
-            <PasswordBox
-              type="password"
-              value={passwordConfirm}
-              onChange={(e) => setPasswordConfirm(e.target.value)}
-            />
-          </Flex>
-        </InputForms>
+        <PasswordInputs
+          currentPassword={currentPassword}
+          newPassword={newPassword}
+          passwordConfirm={passwordConfirm}
+          onCurrentPasswordChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setCurrentPassword(e.target.value)
+          }
+          onPasswordConfirmChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPasswordConfirm(e.target.value)
+          }
+          handleNewPasswordChange={handleNewPasswordChange}
+        />
+
         {errorMessage && (
           <ErrorMesDiv>
             <ErrorMes>{errorMessage}</ErrorMes>
           </ErrorMesDiv>
         )}
+
         <ButtonDiv>
           <Button onClick={handlePasswordChange}>변경하기</Button>
         </ButtonDiv>
@@ -133,26 +120,14 @@ const Container = styled.div`
 const Title = styled.p`
   font-size: 30px;
 `;
-const Text = styled.p`
-  font-size: 15px;
-`;
-const InputForms = styled.div`
+const ErrorMesDiv = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-content: center;
 `;
-const Flex = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-const PasswordBox = styled.input`
-  font-size: 15px;
-  background-color: #e9f5ff;
-  border: none;
-  border-radius: 10px;
-  width: 200px;
-  height: 20px;
-  padding: 5px;
+const ErrorMes = styled.p`
+  position: absolute;
+  font-size: 13px;
+  color: red;
 `;
 const ButtonDiv = styled.div`
   width: 100%;
@@ -165,13 +140,4 @@ const Button = styled.button`
   width: 100px;
   padding: 5px;
   margin-top: 70px;
-`;
-const ErrorMesDiv = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-const ErrorMes = styled.p`
-  position: absolute;
-  font-size: 13px;
-  color: red;
 `;
